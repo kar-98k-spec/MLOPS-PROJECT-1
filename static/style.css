@@ -1,0 +1,122 @@
+/* Futuristic Neon Hotel Prediction - style.css */
+
+body {
+    background-color: #0d0d0d; /* deep black background */
+    font-family: 'Orbitron', sans-serif; /* futuristic font */
+    color: #00ffe1; /* neon teal text */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background: rgba(20, 20, 20, 0.95);
+    border: 2px solid #00ffe1;
+    border-radius: 15px;
+    padding: 30px 40px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 0 20px #00ffe1, 0 0 40px #0ff;
+    animation: fadeIn 1s ease-in;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ff00ff; /* neon pink */
+    font-size: 28px;
+    letter-spacing: 2px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #0ff;
+    font-size: 16px;
+}
+
+input[type="number"],
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #00ffe1;
+    background-color: #111;
+    color: #00ffe1;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+input[type="number"]:focus,
+select:focus {
+    outline: none;
+    border-color: #ff00ff;
+    box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+}
+
+button[type="submit"] {
+    width: 100%;
+    background: linear-gradient(45deg, #00ffe1, #ff00ff);
+    color: #0d0d0d;
+    font-weight: bold;
+    border: none;
+    padding: 15px;
+    margin-top: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(45deg, #ff00ff, #00ffe1);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #ff00ff, 0 0 25px #00ffe1;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    animation: fadeIn 1.5s ease;
+}
+
+.result p {
+    font-size: 20px;
+}
+
+.result p:first-child {
+    color: #ff0033; /* neon red for cancel */
+}
+
+.result p:nth-child(2) {
+    color: #00ff00; /* neon green for not cancel */
+}
+
+/* FadeIn Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+}

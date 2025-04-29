@@ -6,3 +6,4 @@
  imbalanced-learn
  lightgbm
  mlflow
+ flask
