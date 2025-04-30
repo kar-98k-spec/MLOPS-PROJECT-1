@@ -14,10 +14,7 @@ pipeline{
                 }
             }
         }   
-    }
 
-
-    stages {
         stage('Setting up the virtual environment and installing dependencies') {
             steps {
                 script{
