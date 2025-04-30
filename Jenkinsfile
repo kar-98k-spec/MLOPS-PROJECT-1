@@ -42,13 +42,35 @@ pipeline{
                         gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                         gcloud config set project ${GCP_PROJECT}
                         gcloud auth configure-docker --quiet
-                        
+
                         docker build -t gcr.io/${GCP_PROJECT}/mlops-project-1:latest .
                         docker push gcr.io/${GCP_PROJECT}/mlops-project-1:latest
                         '''
                     }
                 }
             }
-        }    
+        }
+
+        stage('Deploy application to run on Google Cloud') {
+            steps {
+                withCredentials([file(credentialsId : 'gcp-key' , variable : 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                    script{
+                        echo 'Deploy application to run on Google Cloud...'
+                        sh '''
+                        export PATH=$PATH:${GCLOUD_PATH}
+                        gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
+                        gcloud config set project ${GCP_PROJECT}
+                        
+                        gcloud run deploy mlops-project-1 \
+                            --image=gcr.io/${GCP_PROJECT}/mlops-project-1:latest \
+                            --platform=managed \
+                            --region=us-central1 \
+                            --allow-unauthenticated \
+                            
+                        '''
+                    }
+                }
+            }
+        }     
     }
 }
