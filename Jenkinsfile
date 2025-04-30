@@ -3,6 +3,8 @@ pipeline{
 
     environment {
         VENV_DIR = 'venv'
+        GCP_PROJECT = "mlops-projects-455414"
+        GCLOUD_PATH = "/var/jenkins_home/google-cloud-sdk/bin"
     }
 
     stages {
@@ -27,6 +29,26 @@ pipeline{
                    '''
                 }
             }
-        }   
+        }
+
+
+        stage('Building and pushing Docker image to GCR') {
+            steps {
+                withCredentials([file(credentialsId : 'gcp-key' , variable : 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                    script{
+                        echo 'Building and pushing Docker image to GCR...'
+                        sh '''
+                        export PATH=$PATH:${GCLOUD_PATH}
+                        gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
+                        gcloud config set project ${GCP_PROJECT}
+                        gcloud auth configure-docker --quiet
+                        
+                        docker build -t gcr.io/${GCP_PROJECT}/mlops-project-1:latest .
+                        docker push gcr.io/${GCP_PROJECT}/mlops-project-1:latest
+                        '''
+                    }
+                }
+            }
+        }    
     }
 }
